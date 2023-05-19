@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-    <div style="text-align:center; width:70%; margin:auto;">
+    <div style="text-align:center; width:70%; margin:auto; border:solid black 2px;">
         <form action="" method="POST">
         <div class="giannis">  
             <laber for="esodaGianni">Έσοδα Γιάννη:</laber><br>
@@ -43,8 +43,10 @@
             <input type="number" name="esodaStefanou" ><br><br>
             <laber for="eksodaStefanou">Έξοδα Στέφανου:</laber><br>
             <input type="number" name="eksodaStefanou" ><br>
-         </div>  
-            <input type="submit" name="submit" value="Υπολογισμός">
+         </div> 
+            <laber for="eksoda">Δηλωμένα έξοδα:</laber><br>
+            <input type="number" name="eksoda" style="width:40%"> <br><br>
+            <input type="submit" name="submit" value="Υπολογισμός"><br>
         </form>
     </div>
     <?php
@@ -59,15 +61,22 @@
         }
         return $_POST[$field];
 }
+    echo "<br><br>";
     $kerdosGianni = strip_post("esodaGianni") - strip_post("eksodaGianni");
     $kerdosStefanou = strip_post("esodaStefanou") - strip_post("eksodaStefanou"); 
     if( $kerdosGianni >= $kerdosStefanou){
-        echo "<span style='margin:auto;'>Ο Γιάννης χρωστάει " .  ($kerdosGianni -  $kerdosStefanou)/2 . " ευρώ στον Στέφανο!</span>";
+        
+        echo "<div style='text-align:center;'>Ο Γιάννης χρωστάει " .  ($kerdosGianni -  $kerdosStefanou)/2 . " ευρώ στον Στέφανο!</div>";
     }
     else{
-        echo "Ο Στέφανος χρωστάει " .  ( $kerdosStefanou - $kerdosGianni)/2 . " ευρώ στον Γιάννη!";
+        echo "<div style='text-align:center;'>Ο Στέφανος χρωστάει " .  ( $kerdosStefanou - $kerdosGianni)/2 . " ευρώ στον Γιάννη!</div>";
 
     }
+    echo "<br><br>";
+    $foros = (strip_post("esodaGianni") + strip_post("esodaStefanou") - strip_post("eksoda") ) - ((strip_post("esodaGianni") + strip_post("esodaStefanou") - strip_post("eksoda")) / 1.24);
+    echo "<br>";
+    
+    echo "<div style='text-align:center;'>Tα " . $foros . " ευρώ είναι για την εφορία. </div>";
 ?>
 </body>
 </html>
