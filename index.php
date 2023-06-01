@@ -30,7 +30,10 @@
     </style>
 </head>
 <body>
-    <div style="text-align:center; width:70%; margin:auto; border:solid black 2px;">
+    <?php
+        include("header.html");
+    ?>
+    <div style="text-align:center; width:70%; margin:auto; ">
         <form action="" method="POST">
         <div class="giannis">  
             <laber for="esodaGianni">Έσοδα Γιάννη:</laber><br>
@@ -46,9 +49,11 @@
          </div> 
             <laber for="eksoda">Δηλωμένα έξοδα:</laber><br>
             <input type="number" name="eksoda" style="width:40%"> <br><br>
-            <input type="submit" name="submit" value="Υπολογισμός"><br>
+            <input style="width:43%" type="submit" name="submit" value="Υπολογισμός"><br>
         </form>
     </div>
+    <br>
+
     <?php
     function strip_post($field){
         if (isset($_POST[$field])){
@@ -59,24 +64,29 @@
         else{
             $_POST[$field] = 0;
         }
-        return $_POST[$field];
+        return htmlspecialchars(stripslashes($_POST[$field]));
 }
     echo "<br><br>";
     $kerdosGianni = strip_post("esodaGianni") - strip_post("eksodaGianni");
     $kerdosStefanou = strip_post("esodaStefanou") - strip_post("eksodaStefanou"); 
+   
     if( $kerdosGianni >= $kerdosStefanou){
         
-        echo "<div style='text-align:center;'>Ο Γιάννης χρωστάει " .  ($kerdosGianni -  $kerdosStefanou)/2 . " ευρώ στον Στέφανο!</div>";
+        echo "<div style=' padding-bottom:15px;  margin:auto;text-align:center; background-color: #D1D3C5; width:50%;'><h3 style='background-color: rgb(31, 139, 132);'>Μοίρασμα εσόδων - εξόδων<br></h3>Ο Γιάννης χρωστάει " .  ($kerdosGianni -  $kerdosStefanou)/2 . " ευρώ στον Στέφανο!</div>";
     }
     else{
-        echo "<div style='text-align:center;'>Ο Στέφανος χρωστάει " .  ( $kerdosStefanou - $kerdosGianni)/2 . " ευρώ στον Γιάννη!</div>";
+        echo "<div style=' padding-bottom:15px;  margin:auto;text-align:center; background-color: #D1D3C5; width:50%;'><h3 style='background-color: rgb(31, 139, 132);'>Μοίρασμα εσόδων - εξόδων<br></h3>Ο Στέφανος χρωστάει " .  ( $kerdosStefanou - $kerdosGianni)/2 . " ευρώ στον Γιάννη!</div>";
 
     }
-    echo "<br><br>";
+    echo "<br>";
     $foros = (strip_post("esodaGianni") + strip_post("esodaStefanou") - strip_post("eksoda") ) - ((strip_post("esodaGianni") + strip_post("esodaStefanou") - strip_post("eksoda")) / 1.24);
     echo "<br>";
     
-    echo "<div style='text-align:center;'>Tα " . $foros . " ευρώ είναι για την εφορία. </div>";
+    echo "<div style=' padding-bottom:15px;  margin:auto;text-align:center; background-color: #D1D3C5; width:50%;'><h3 style='background-color: rgb(31, 139, 132);'>Υπολογισμός ποσού εφορίας<br></h3>Tα " . $foros . " ευρώ είναι για την εφορία. </div>";
+
+    // echo "<br>";
+    // $kerdos = $kerdosGianni + $kerdosStefanou - $foros;
+    // echo "<div style=' padding-bottom:15px;  margin:auto;text-align:center; background-color: #D1D3C5; width:50%;'><h3 style='background-color: rgb(31, 139, 132);'>Σύνολο μήνα επιχείρησης<br></h3>Tα " . $kerdos;
 ?>
 </body>
 </html>
